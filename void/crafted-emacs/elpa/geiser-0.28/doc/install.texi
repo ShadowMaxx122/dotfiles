@@ -1,0 +1,157 @@
+@node Installation, The REPL, Introduction, Top
+@chapter Installation
+
+@menu
+* Must needs::
+* The quick and easy way::
+* From the source's mouth::
+* Friends::
+@end menu
+
+@node Must needs, The quick and easy way, Installation, Installation
+@section Must needs
+
+@cindex supported versions
+@cindex versions supported
+If Geiser came with any guarantees, you'd break all of them by not using
+GNU Emacs @value{EMACS_VERSION} (or better: i regularly use it with a
+recent Emacs snapshot) and at least one of the supported Schemes,
+namely:
+
+@itemize @bullet
+@supimpl{Chez, http://www.scheme.com, 9.4,chez}
+@supimpl{Chibi, http://synthcode.com/scheme/chibi, 0.7.3,chibi}
+@supimpl{Chicken, http://call-cc.org, 4.8.0, chicken}
+@supimpl{Gambit, http://gambitscheme.org/wiki/index.php/Main_Page, 4.9.3, gambit}
+@supimpl{Gauche, http://practical-scheme.net/gauche/, 0.9.6, gauche}
+@supimpl{Guile, http://www.gnu.org/software/guile, 2.2, guile}
+@supimpl{GNU Kawa, http://www.gnu.org/software/kawa/index.html, 3.1, kawa}
+@supimpl{MIT/GNU Scheme, https://www.gnu.org/software/mit-scheme, 9.0, mit}
+@supimpl{Racket, http://www.racket-lang.org, 7.0, racket}
+@supimpl{Stklos, https://stklos.net/, 1.50, stklos}
+@end itemize
+
+Since Geiser supports multiple REPLs, having all of them will just add
+to the fun.
+
+You'll also need Geiser itself.  The quickest installation is via your
+favourite implementation's ELPA packages (as of this writing, they're
+all available in MELPA and (most of them) also in NonGNU ELPA, which
+comes included with the batteries of Emacs 28 or better).
+
+@node The quick and easy way, From the source's mouth, Must needs, Installation
+@section The quick and easy way
+
+@cindex quick install
+@cindex ELPA
+@cindex NonGNU ELPA
+Did i mention that the easiest way of installing Geiser is using its
+@uref{http://emacswiki.org/emacs/ELPA, ELPA} package?  If you're using
+Emacs 24, @uref{http://emacswiki.org/emacs/ELPA, ELPA} is already there;
+for earlier versions, the page i just linked to twice will tell you
+where to find the goodies.
+
+ELPA packages live in repositories accessible via HTTP.  You can find
+Geiser's package in either
+@uref{https://elpa.nongnu.org/nongnu/geiser.html, NonGNU ELPA} or, if
+you like living on the bleeding edge, @uref{http://melpa.org/#/geiser,
+MELPA} (directly from the git repo).  To tell Emacs that an ELPA repo
+exists, you add it to @code{package-archives}@footnote{If you're using
+Emacs 28 or better, @code{package-archives} already comes with the
+non-gnu archive preconfigured, so you're lucky in more than one way.}:
+
+@example
+(require 'package)
+
+(add-to-list 'package-archives
+  '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
+
+(package-initialize)
+@end example
+
+And then installing your favourite Geiser is as easy as (if, say, you're
+a MIT aficionado):
+
+@example
+M-x package-install RET geiser-mit RET
+@end example
+
+Rinse and repeat for each of the scheme implementations that you would
+like to use.  Some of them (e.g. Gambit or Chicken) have a bit of
+additional setup, specific to them, so make sure you also check their
+respective package documentation.
+
+With that, you are pretty much all set up.  See @ref{The REPL} to start
+using Geiser.
+
+@ifnotinfo
+And, by the way, if you prefer to keep reading this manual within Emacs,
+@kbd{C-h i m Geiser RET} will bring you to the info version of it that
+you just installed!
+@end ifnotinfo
+
+@node From the source's mouth, Friends, The quick and easy way, Installation
+@section Installing from source
+
+All Geiser packages are ready to be used out of the box without much
+more ado.  For the sake of concreteness, let's assume you put its source
+in the directory @file{~/lisp/geiser}.  All you need to do is to add the
+following line to your Emacs initialisation file (be it @file{~/.emacs},
+@file{~/.emacs.d/init.el} or any of its moral equivalents):
+
+@example
+(add-to-list 'load-path "~/lisp/geiser/elisp")
+@end example
+
+and, if your, say, @code{geiser-gambit} checkout lives in
+@file{~/lisp/geiser-mit} add to that:
+
+@example
+(add-to-list 'load-path "~/lisp/geiser-gambit")
+@end example
+
+The autoloads defined in those packages should be enough to start
+scheming.
+
+@node Friends,  , From the source's mouth, Installation
+@section Friends
+
+Although Geiser does not need them, it plays well with (and is enhanced
+by) the following Emacs packages:
+
+@cindex ac-geiser
+@cindex autocomplete
+@cindex paredit
+@cindex company
+@cindex macrostep
+@itemize @bullet
+@item @uref{http://www.emacswiki.org/emacs/ParEdit, Paredit}.
+@anchor{paredit}
+Regardless of whether you use Geiser or not, you shouldn't be coding
+in any Lisp dialect without the aid of Taylor Campbell's structured
+editing mode.
+@item @uref{http://company-mode.github.io/, Company}.
+Nikolaj Schumacher's and Dmitry Gutov's @code{company-mode} provides a
+generic front-end for completion engines (such as Geiser's), with pretty
+and automatic completion lists.
+@item @uref{https://github.com/nbfalcon/macrostep-geiser, macrostep-geiser}
+provides support for in-buffer macro expansion, using the
+@uref{https://github.com/joddie/macrostep, macrostep} package.
+@item @uref{https://github.com/xiaohanyu/ac-geiser/, ac-geiser}
+If you prefer @code{auto-complete-mode} to @code{company-mode}, Xiao
+Hanyu's @code{ac-geiser}, which provides a Geiser plugin for the
+popular @uref{https://www.emacswiki.org/emacs/AutoComplete, Emacs Auto
+Completion Mode}, is the package for you.  Like Geiser,
+@code{ac-geiser} is available in MELPA, and also as an
+@code{el-get} package.
+@end itemize
+
+@noindent
+You just need to install and setup them as usual, for every package's
+definition of usual.  Geiser will notice their presence and react
+accordingly.
+
+@c Local Variables:
+@c mode: texinfo
+@c TeX-master: "geiser"
+@c End:
