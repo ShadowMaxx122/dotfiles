@@ -1,2 +1,0 @@
-;; Generated package description from geiser-guile.el  -*- no-byte-compile: t -*-
-(define-package "geiser-guile" "0.28.0" "Guile and Geiser talk to each other" '((emacs "25.1") (transient "0.3") (geiser "0.28")) :commit "f5e82dc0f5a076335f201885a7edbefaa1ad435f" :authors '(("Jose Antonio Ortega Ruiz" . "jao@gnu.org")) :maintainer '("Jose Antonio Ortega Ruiz" . "jao@gnu.org") :keywords '("languages" "guile" "scheme" "geiser") :url "https://gitlab.com/emacs-geiser/guile")
